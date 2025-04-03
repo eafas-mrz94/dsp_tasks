@@ -1,0 +1,35 @@
+name: Extraction DSP Tasks
+
+on:
+  schedule:
+    - cron: '0 4 * * *'  # Tous les jours à 4h du matin
+  workflow_dispatch:
+
+jobs:
+  extract-dsp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Cloner le dépôt
+      uses: actions/checkout@v3
+
+    - name: 🐍 Installer Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+
+    - name: 📦 Installer les dépendances
+      run: |
+        pip install -r requirements.txt
+
+    - name: 📄 Télécharger les fichiers CSV RSC-LYO et FR-CDG (exemple local)
+      run: |
+        echo "📝 Simule le téléchargement des fichiers"
+        # ⚠️ ICI tu dois remplacer cette partie par un vrai download automatique si possible
+        cp fichiers_exemple/RSC-LYO.csv RSC-LYO.csv
+        cp fichiers_exemple/FR-CDG.csv FR-CDG.csv
+
+    - name: 🚀 Lancer le script
+      env:
+        SHEETS_API_JSON: ${{ secrets.SHEETS_API_JSON }}
+      run: python extraction_dsp_tasks.py
