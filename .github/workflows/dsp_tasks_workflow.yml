@@ -31,5 +31,5 @@ jobs:
 
     - name: 🚀 Lancer le script
       env:
-        SHEETS_API_JSON: ${{ secrets.SHEETS_API_JSON }}
+        SHEETS_DSP_JSON: ${{ secrets.SHEETS_DSP_JSON }}
       run: python extraction_dsp_tasks.py
